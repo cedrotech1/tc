@@ -12,7 +12,7 @@ export function Insights() {
     document.title = "Insights | Techclick";
   }, []);
   const visible = filter === "All" ? insights : insights.filter((item) => item.type === filter);
-
+// const
   return (
     <>
       <PageHero
