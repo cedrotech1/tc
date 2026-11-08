@@ -6,6 +6,94 @@ import NotFound from "./NotFound.jsx";
 
 const filters = ["All", "Article", "Point of view", "Research"];
 
+function QuestionMark({ heading }) {
+  const name = heading.toLowerCase();
+  const common = {
+    viewBox: "0 0 24 24",
+    className: "h-[18px] w-[18px]",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.7,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  if (/decision|task|change/.test(name)) {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="7.5" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    );
+  }
+  if (/source|content|answer/.test(name)) {
+    return (
+      <svg {...common}>
+        <path d="m4 9 8-4 8 4-8 4zM4 14l8 4 8-4" />
+      </svg>
+    );
+  }
+  if (/allowed|see|permission/.test(name)) {
+    return (
+      <svg {...common}>
+        <path d="M12 3.5 19 6.5v5.2c0 4.2-2.8 6.8-7 8.3-4.2-1.5-7-4.1-7-8.3V6.5z" />
+      </svg>
+    );
+  }
+  if (/quality|measured/.test(name)) {
+    return (
+      <svg {...common}>
+        <path d="M5 19V10M12 19V5M19 19v-7" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <path d="M12 3v18M16.5 7.5c0-2-1.8-3-4.5-3s-4.5 1.2-4.5 3 1.8 2.8 4.5 2.8 4.5 1.2 4.5 3-1.8 3-4.5 3-4.5-1-4.5-3" />
+    </svg>
+  );
+}
+
+function InsightMark({ practice }) {
+  const name = practice.toLowerCase();
+  const common = {
+    viewBox: "0 0 24 24",
+    className: "h-[18px] w-[18px]",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.7,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  if (/cyber|security/.test(name)) {
+    return (
+      <svg {...common}>
+        <path d="M12 3.5 19 6.5v5.2c0 4.2-2.8 6.8-7 8.3-4.2-1.5-7-4.1-7-8.3V6.5z" />
+      </svg>
+    );
+  }
+  if (/integrat/.test(name)) {
+    return (
+      <svg {...common}>
+        <path d="M8 8V4M16 8V4M7 8h10v4a5 5 0 0 1-10 0zM12 17v3" />
+      </svg>
+    );
+  }
+  if (/cloud/.test(name)) {
+    return (
+      <svg {...common}>
+        <path d="M7 18h10.2a3.8 3.8 0 0 0 .3-7.6A5.4 5.4 0 0 0 7.2 12 3.4 3.4 0 0 0 7 18z" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <path d="M5 19V10M12 19V5M19 19v-7" />
+    </svg>
+  );
+}
+
 export function Insights() {
   const [filter, setFilter] = useState("All");
   useEffect(() => {
@@ -85,30 +173,46 @@ export function InsightDetail() {
         lead={article.summary}
       />
       <Section>
-        <article className="card p-8 sm:px-10 sm:py-12">
-          <p className="mb-10 font-mono text-xs text-muted">
-            {article.author} · {article.minutes} min read
-          </p>
-          <div className="max-w-3xl">
-            {article.sections.map((section) => (
-              <section key={section.heading} className="mb-10 last:mb-0">
-                <h2 className="text-2xl font-semibold tracking-tight">{section.heading}</h2>
-                <p className="mt-3 text-lg leading-relaxed text-muted">{section.body}</p>
-              </section>
-            ))}
-          </div>
-        </article>
+        <p className="mb-4 font-mono text-xs text-muted">
+          {article.author} · {article.minutes} min read
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {article.sections.map((section, index) => (
+            <article key={section.heading} className="group card cap-card flex h-full flex-col overflow-hidden">
+              <div className="section-head flex items-center justify-between px-4 py-3">
+                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-blue text-white transition group-hover:bg-blue-deep">
+                  <QuestionMark heading={section.heading} />
+                </span>
+                <span className="font-mono text-[11px] text-muted">{String(index + 1).padStart(2, "0")}</span>
+              </div>
+              <div className="industry-card flex flex-1 flex-col px-4 pt-4 pb-5">
+                <h2 className="font-semibold leading-snug transition group-hover:text-blue">{section.heading}</h2>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">{section.body}</p>
+              </div>
+              <span className="h-1 w-0 bg-blue transition-all duration-300 group-hover:w-full" />
+            </article>
+          ))}
+        </div>
       </Section>
       <Section tone="white">
         <SectionHead title="Related insights" />
         <div className="grid gap-4 md:grid-cols-2">
-          {related.map((item) => (
-            <Link key={item.slug} to={`/insights/${item.slug}`} className="card block p-6">
-              <p className="font-mono text-xs text-muted">
-                {item.type} · {item.practice} · {item.minutes} min read
-              </p>
-              <p className="mt-3 text-lg font-semibold">{item.title}</p>
-              <p className="mt-2 text-sm text-muted">{item.summary}</p>
+          {related.map((item, index) => (
+            <Link key={item.slug} to={`/insights/${item.slug}`} className="group card cap-card flex h-full flex-col overflow-hidden">
+              <div className="section-head flex items-center justify-between px-4 py-3">
+                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-blue text-white transition group-hover:bg-blue-deep">
+                  <InsightMark practice={item.practice} />
+                </span>
+                <span className="font-mono text-[11px] text-muted">{String(index + 1).padStart(2, "0")}</span>
+              </div>
+              <div className="industry-card flex flex-1 flex-col px-4 pt-4 pb-5">
+                <p className="font-mono text-[11px] text-muted">
+                  {item.type} · {item.practice} · {item.minutes} min read
+                </p>
+                <h3 className="mt-2 font-semibold leading-snug transition group-hover:text-blue">{item.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">{item.summary}</p>
+              </div>
+              <span className="h-1 w-0 bg-blue transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </div>
