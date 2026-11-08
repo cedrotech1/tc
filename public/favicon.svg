@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <rect width="40" height="40" rx="9" fill="#1544D6"/>
+  <polygon points="0,0 40,0 0,40" fill="#0B1A2E"/>
+  <text x="20" y="25" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="700">TC</text>
+</svg>
