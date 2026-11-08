@@ -306,6 +306,129 @@ export function CtaBand({
   );
 }
 
+function CapIcon({ title }) {
+  const t = title.toLowerCase();
+  const kind = /workflow|visual/.test(t)
+    ? "flow"
+    : /api/.test(t)
+      ? "api"
+      : /event|stream/.test(t)
+        ? "pulse"
+        : /partner|onboard|desk|support/.test(t)
+          ? "people"
+          : /monitor|tracing|detect/.test(t)
+            ? "radar"
+            : /developer|sdk|tool|engineering/.test(t)
+              ? "code"
+              : /connector|integrat/.test(t)
+                ? "plug"
+                : /semantic|layer/.test(t)
+                  ? "layers"
+                  : /quality|govern|permission|secur|identity|risk|admin/.test(t)
+                    ? "shield"
+                    : /cloud|infrastructure/.test(t)
+                      ? "cloud"
+                      : /health|life science/.test(t)
+                        ? "care"
+                        : /manufactur/.test(t)
+                          ? "factory"
+                          : /retail|consumer/.test(t)
+                            ? "bag"
+                            : /analytic|self-service|report|touch|rate/.test(t)
+                              ? "chart"
+                              : /playbook|automat|task/.test(t)
+                                ? "bolt"
+                                : /evaluat|score/.test(t)
+                                  ? "target"
+                                  : "grid";
+  const common = {
+    viewBox: "0 0 24 24",
+    className: "h-[18px] w-[18px]",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.7,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  const paths = {
+    flow: <path d="M5 7h4v4H5zM15 13h4v4h-4zM9 9h6M15 15H9" />,
+    api: <path d="M8 8 4.5 12 8 16M16 8l3.5 4L16 16M13 6l-2 12" />,
+    pulse: <path d="M3 12h4l2-5 4 10 2-5h6" />,
+    people: (
+      <>
+        <circle cx="9" cy="9" r="2.2" />
+        <path d="M5.2 17.5c.5-2 2-3 3.8-3s3.3 1 3.8 3" />
+        <circle cx="16" cy="9.2" r="1.7" />
+        <path d="M15.2 14.6c1.3.2 2.3.9 2.8 2.3" />
+      </>
+    ),
+    radar: (
+      <>
+        <circle cx="12" cy="12" r="7.5" />
+        <path d="M12 12 16.5 8.5M12 8.5V12" />
+      </>
+    ),
+    code: <path d="M8 8 4.5 12 8 16M16 8l3.5 4L16 16" />,
+    plug: <path d="M8 8V4M16 8V4M7 8h10v4a5 5 0 0 1-10 0zM12 17v3" />,
+    layers: <path d="m4 9 8-4 8 4-8 4zM4 14l8 4 8-4" />,
+    shield: <path d="M12 3.5 19 6.5v5.2c0 4.2-2.8 6.8-7 8.3-4.2-1.5-7-4.1-7-8.3V6.5z" />,
+    cloud: <path d="M7 18h10.2a3.8 3.8 0 0 0 .3-7.6A5.4 5.4 0 0 0 7.2 12 3.4 3.4 0 0 0 7 18z" />,
+    care: (
+      <>
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 8.5v7M8.5 12h7" />
+      </>
+    ),
+    factory: <path d="M3 20V10l5 3V10l5 3V8l8 4v8z" />,
+    bag: <path d="M6.5 8h11l-1 12h-9zM9 8V6.5a3 3 0 0 1 6 0V8" />,
+    chart: <path d="M5 19V10M12 19V5M19 19v-7" />,
+    bolt: <path d="M13 3 6 13h5l-1 8 8-12h-5z" />,
+    target: (
+      <>
+        <circle cx="12" cy="12" r="7.5" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    grid: (
+      <>
+        <rect x="4" y="4" width="6.5" height="6.5" rx="1.2" />
+        <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2" />
+        <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2" />
+        <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2" />
+      </>
+    ),
+  };
+  return <svg {...common}>{paths[kind]}</svg>;
+}
+
+export function FeatureCard({ index, title, text, to }) {
+  const className = "group card cap-card flex h-full flex-col overflow-hidden";
+  const body = (
+    <>
+      <div className="section-head flex items-center justify-between px-4 py-3">
+        <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-blue text-white transition group-hover:bg-blue-deep">
+          <CapIcon title={title} />
+        </span>
+        <span className="font-mono text-[11px] text-muted">{String(index + 1).padStart(2, "0")}</span>
+      </div>
+      <div className="industry-card flex flex-1 flex-col px-4 pt-4 pb-5">
+        <h3 className="font-semibold transition group-hover:text-blue">{title}</h3>
+        {text && <p className="mt-1.5 text-sm leading-relaxed text-muted">{text}</p>}
+      </div>
+      <span className="h-1 w-0 bg-blue transition-all duration-300 group-hover:w-full" />
+    </>
+  );
+  if (to) {
+    return (
+      <Link to={to} className={className}>
+        {body}
+      </Link>
+    );
+  }
+  return <article className={className}>{body}</article>;
+}
+
 export function CheckList({ items }) {
   return (
     <ul className="grid gap-3">

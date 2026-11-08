@@ -4,7 +4,7 @@ import { bySlug, pick, productPrinciples, products, services, solutions } from "
 import { InquiryForm } from "../components/Forms.jsx";
 import { Symbol } from "../components/Logo.jsx";
 import { ProductScreen } from "../components/Screens.jsx";
-import { Button, CheckList, Container, CtaBand, PageHero, Section, SectionHead, StepNo, TextLink } from "../components/ui.jsx";
+import { Button, CheckList, Container, CtaBand, FeatureCard, PageHero, Section, SectionHead, StepNo, TextLink } from "../components/ui.jsx";
 import NotFound from "./NotFound.jsx";
 
 export function Products() {
@@ -100,11 +100,8 @@ export function ProductDetail() {
       <Section tone="smoke">
         <SectionHead title="Capabilities" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {product.capabilities.map((item) => (
-            <article key={item.title} className="card p-5">
-              <h3 className="font-semibold">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
-            </article>
+          {product.capabilities.map((item, index) => (
+            <FeatureCard key={item.title} index={index} title={item.title} text={item.text} />
           ))}
         </div>
       </Section>

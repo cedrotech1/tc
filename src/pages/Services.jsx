@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { bySlug, engageSteps, pick, products, services, solutions } from "../data/site.js";
 import { Symbol } from "../components/Logo.jsx";
-import { CheckList, CtaBand, PageHero, Section, SectionHead, StepNo, TextLink } from "../components/ui.jsx";
+import { CheckList, CtaBand, FeatureCard, PageHero, Section, SectionHead, StepNo, TextLink } from "../components/ui.jsx";
 import NotFound from "./NotFound.jsx";
 
 export function Services() {
@@ -92,11 +92,8 @@ export function ServiceDetail() {
       <Section tone="smoke">
         <SectionHead title="What we do" />
         <div className="grid gap-4 sm:grid-cols-2">
-          {service.offerings.map((item) => (
-            <article key={item.title} className="card p-6">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
-            </article>
+          {service.offerings.map((item, index) => (
+            <FeatureCard key={item.title} index={index} title={item.title} text={item.text} />
           ))}
         </div>
       </Section>

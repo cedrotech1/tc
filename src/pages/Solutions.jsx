@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { bySlug, industries, pick, products, services, solutions } from "../data/site.js";
 import { Symbol } from "../components/Logo.jsx";
-import { Chip, CtaBand, PageHero, Section, SectionHead, StepNo } from "../components/ui.jsx";
+import { Chip, CtaBand, FeatureCard, PageHero, Section, SectionHead, StepNo } from "../components/ui.jsx";
 import NotFound from "./NotFound.jsx";
 
 export function Solutions() {
@@ -125,21 +125,22 @@ export function SolutionDetail() {
       <Section tone="white">
         <SectionHead title="How success is measured" text="We take a baseline in the first phase and report against it at every stage." />
         <div className="grid gap-4 md:grid-cols-3">
-          {solution.measures.map((measure) => (
-            <p key={measure} className="card p-6 text-lg font-semibold leading-snug">
-              {measure}
-            </p>
+          {solution.measures.map((measure, index) => (
+            <FeatureCard key={measure} index={index} title={measure} />
           ))}
         </div>
       </Section>
       <Section tone="smoke">
         <SectionHead title="Industries where this applies" />
         <div className="grid gap-4 md:grid-cols-2">
-          {relatedIndustries.map((industry) => (
-            <Link key={industry.slug} to={`/industries/${industry.slug}`} className="card block p-5">
-              <p className="font-semibold">{industry.name}</p>
-              <p className="mt-2 text-sm text-muted">{industry.summary}</p>
-            </Link>
+          {relatedIndustries.map((industry, index) => (
+            <FeatureCard
+              key={industry.slug}
+              index={index}
+              title={industry.name}
+              text={industry.summary}
+              to={`/industries/${industry.slug}`}
+            />
           ))}
         </div>
       </Section>

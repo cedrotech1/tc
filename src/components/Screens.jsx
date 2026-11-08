@@ -2,13 +2,13 @@ import { Symbol } from "./Logo.jsx";
 
 function Frame({ mark, title, children }) {
   return (
-    <figure className="card overflow-hidden">
+    <figure className="card flex h-full flex-col overflow-hidden">
       <figcaption className="flex items-center gap-2.5 bg-smoke px-4 py-3">
         <Symbol size="sm">{mark}</Symbol>
         <span className="text-sm font-semibold">{title}</span>
         <span className="ml-auto font-mono text-[10px] tracking-wide text-muted uppercase">Sample data</span>
       </figcaption>
-      <div className="grid gap-3.5 p-4">{children}</div>
+      <div className="flex flex-1 flex-col gap-3.5 p-4">{children}</div>
     </figure>
   );
 }
@@ -124,39 +124,55 @@ export function RelayScreen() {
     ["Transform", "Map to order schema"],
     ["Route", "Region rules"],
   ];
+  const ends = [
+    ["Warehouse API", "Delivered"],
+    ["CRM events", "Delivered"],
+    ["Partner EDI", "Retrying"],
+  ];
   return (
     <Frame mark="Rl" title="Techclick Relay">
-      <div className="grid gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
-        {nodes.map(([title, text], index) => (
-          <div key={title} className="contents">
-            <div className="rounded-[10px] bg-smoke px-3 py-2.5">
-              <p className="text-xs font-semibold">{title}</p>
-              <p className="font-mono text-[10px] text-muted">{text}</p>
-            </div>
-            {index < 2 && (
-              <div className="hidden items-center sm:flex" aria-hidden="true">
-                <span className="h-px w-4 bg-muted/50" />
+      <div className="flex flex-1 flex-col gap-3">
+        <div className="rounded-[10px] bg-smoke p-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            {nodes.map(([title, text], index) => (
+              <div key={title} className="flex min-w-0 flex-1 items-center gap-2">
+                <div className="flex min-w-0 flex-1 items-center gap-2.5 rounded-[10px] bg-white px-3 py-2.5">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-[8px] bg-blue font-mono text-[10px] font-medium text-white">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-xs font-semibold">{title}</span>
+                    <span className="block truncate font-mono text-[10px] text-muted">{text}</span>
+                  </span>
+                </div>
+                {index < nodes.length - 1 && (
+                  <svg viewBox="0 0 16 16" className="hidden h-4 w-4 shrink-0 text-blue sm:block" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
               </div>
-            )}
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="grid gap-2 sm:grid-cols-3">
-        {[
-          ["Warehouse API", "Delivered"],
-          ["CRM events", "Delivered"],
-          ["Partner EDI", "Retrying"],
-        ].map(([name, state]) => (
-          <div key={name} className="rounded-[10px] bg-smoke px-3 py-2.5">
-            <p className="text-xs font-semibold">{name}</p>
-            <p className={`font-mono text-[10px] ${state === "Retrying" ? "text-warn" : "text-ok"}`}>{state}</p>
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        <Kpi label="Messages today" value="184k" note="99.97% delivered" good />
-        <Kpi label="Reusable flows" value="64" note="in catalog" />
-        <Kpi label="Median latency" value="220 ms" note="end to end" />
+        </div>
+        <div className="grid flex-1 gap-2 sm:grid-cols-3">
+          {ends.map(([name, state]) => {
+            const retrying = state === "Retrying";
+            return (
+              <div key={name} className="flex flex-col justify-between rounded-[10px] bg-smoke px-3 py-3">
+                <p className="text-xs font-semibold">{name}</p>
+                <p className={`mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-medium ${retrying ? "text-warn" : "text-ok"}`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${retrying ? "bg-warn" : "bg-ok"}`} />
+                  {state}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          <Kpi label="Messages today" value="184k" note="99.97% delivered" good />
+          <Kpi label="Reusable flows" value="64" note="in catalog" />
+          <Kpi label="Median latency" value="220 ms" note="end to end" />
+        </div>
       </div>
     </Frame>
   );

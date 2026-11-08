@@ -4,6 +4,50 @@ import { careerTracks, hiringSteps, values } from "../data/site.js";
 import { InquiryForm } from "../components/Forms.jsx";
 import { Button, CtaBand, PageHero, Section, SectionHead, StepNo } from "../components/ui.jsx";
 
+function ValueIcon({ title }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    className: "h-5 w-5",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.7,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  if (title === "Accountable") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="8" />
+        <path d="m8.5 12.2 2.4 2.4 4.6-5" />
+      </svg>
+    );
+  }
+  if (title === "Engineering-led") {
+    return (
+      <svg {...common}>
+        <path d="M8 8 4.5 12 8 16" />
+        <path d="m16 8 3.5 4-3.5 4" />
+        <path d="m13 6-2 12" />
+      </svg>
+    );
+  }
+  if (title === "Secure by default") {
+    return (
+      <svg {...common}>
+        <path d="M12 3.5 19 6.5v5.2c0 4.2-2.8 6.8-7 8.3-4.2-1.5-7-4.1-7-8.3V6.5z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <path d="M5 6.5h14a1 1 0 0 1 1 1V15a1 1 0 0 1-1 1H9l-4 3v-3.2" />
+      <path d="M8.5 11h7M8.5 13.5h4" />
+    </svg>
+  );
+}
+
 const facts = [
   ["7", "Service practices"],
   ["4", "Products"],
@@ -27,9 +71,11 @@ export function About() {
       <Section tone="smoke">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {facts.map(([value, label]) => (
-            <article key={label} className="card p-6">
-              <p className="text-4xl font-semibold tracking-tight text-blue">{value}</p>
-              <p className="mt-2 text-sm text-muted">{label}</p>
+            <article key={label} className="card industry-card flex items-center gap-4 px-5 py-5">
+              <span className="inline-grid h-14 min-w-14 place-items-center rounded-[10px] bg-blue px-2 font-mono text-lg font-medium tracking-tight text-white">
+                {value}
+              </span>
+              <p className="text-sm font-semibold leading-snug">{label}</p>
             </article>
           ))}
         </div>
@@ -44,9 +90,14 @@ export function About() {
         <SectionHead title="Values" />
         <div className="grid gap-4 sm:grid-cols-2">
           {values.map((value) => (
-            <article key={value.title} className="card p-6">
-              <h3 className="text-lg font-semibold">{value.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{value.text}</p>
+            <article key={value.title} className="card industry-card flex items-start gap-4 p-5 sm:p-6">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[10px] bg-blue text-white">
+                <ValueIcon title={value.title} />
+              </span>
+              <div className="min-w-0">
+                <h3 className="text-lg font-semibold">{value.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">{value.text}</p>
+              </div>
             </article>
           ))}
         </div>
