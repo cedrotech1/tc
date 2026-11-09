@@ -64,13 +64,15 @@ export function Button({ to, children, variant = "primary", className = "", type
   );
 }
 
-export function TextLink({ to, children, light = false }) {
+export function TextLink({ to, children, light = false, chip = false }) {
   return (
     <Link
       to={to}
-      className={`group inline-flex items-center gap-1.5 text-sm font-semibold ${
-        light ? "text-white" : "text-blue"
-      }`}
+      className={
+        chip
+          ? "group inline-flex items-center gap-1.5 rounded-[10px] bg-blue px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-deep"
+          : `group inline-flex items-center gap-1.5 text-sm font-semibold ${light ? "text-white" : "text-blue"}`
+      }
     >
       {children}
       <Arrow className="h-4 w-4 transition group-hover:translate-x-0.5" />
@@ -258,7 +260,11 @@ function SectionMark({ title }) {
 export function SectionHead({ eyebrow, title, text, action }) {
   return (
     <div className="mb-4 flex">
-      <div className="section-head inline-flex max-w-full flex-wrap items-center gap-3 rounded-[12px] px-3.5 py-2.5 text-ink sm:max-w-2xl sm:px-4">
+      <div
+        className={`section-head flex flex-wrap items-center gap-3 rounded-[12px] px-3.5 py-2.5 text-ink sm:px-4 ${
+          action ? "w-full" : "inline-flex max-w-full sm:max-w-2xl"
+        }`}
+      >
         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-smoke text-blue">
           <SectionMark title={title} />
         </span>
@@ -267,7 +273,7 @@ export function SectionHead({ eyebrow, title, text, action }) {
           <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">{title}</h2>
           {text && <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted">{text}</p>}
         </div>
-        {action && <div className="shrink-0">{action}</div>}
+        {action && <div className="ml-auto shrink-0">{action}</div>}
       </div>
     </div>
   );

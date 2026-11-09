@@ -219,7 +219,7 @@ export default function Home() {
           eyebrow="Combined delivery"
           title="Solutions"
           text="Each solution combines specific practices with one or more of our platforms, under one plan and one set of measures."
-          action={<TextLink to="/solutions">All solutions</TextLink>}
+          action={<TextLink to="/solutions" chip>All solutions</TextLink>}
         />
         <div className="grid gap-4 sm:grid-cols-2">
           {solutions.map((solution, index) => (
@@ -251,7 +251,7 @@ export default function Home() {
       </Section>
 
       <Section tone="white">
-        <SectionHead eyebrow="Sectors" title="Industries" action={<TextLink to="/industries">All industries</TextLink>} />
+        <SectionHead eyebrow="Sectors" title="Industries" action={<TextLink to="/industries" chip>All industries</TextLink>} />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry, index) => (
             <Link
@@ -272,7 +272,7 @@ export default function Home() {
       </Section>
 
       <Section tone="smoke">
-        <SectionHead eyebrow="Engagement profiles" title="How our engagements run" action={<TextLink to="/work">Our work</TextLink>} />
+        <SectionHead eyebrow="Engagement profiles" title="How our engagements run" action={<TextLink to="/work" chip>Our work</TextLink>} />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cases.map((item, index) => (
             <HomeCard
@@ -289,7 +289,7 @@ export default function Home() {
       </Section>
 
       <Section tone="white">
-        <SectionHead eyebrow="From our teams" title="Insights" action={<TextLink to="/insights">All insights</TextLink>} />
+        <SectionHead eyebrow="From our teams" title="Insights" action={<TextLink to="/insights" chip>All insights</TextLink>} />
         <div className="grid gap-4 sm:grid-cols-2">
           {insights.map((item, index) => (
             <HomeCard

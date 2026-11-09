@@ -112,7 +112,7 @@ export function ServiceDetail() {
         </div>
       </Section>
       <Section tone="smoke">
-        <SectionHead title="Products used in this work" action={<TextLink to="/products">All products</TextLink>} />
+        <SectionHead title="Products used in this work" action={<TextLink to="/products" chip>All products</TextLink>} />
         <div className="grid gap-4 md:grid-cols-2">
           {relatedProducts.map((product) => (
             <Link key={product.slug} to={`/products/${product.slug}`} className="card group block p-5">

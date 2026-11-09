@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { careerTracks, hiringSteps, values } from "../data/site.js";
 import { InquiryForm } from "../components/Forms.jsx";
-import { Button, CtaBand, PageHero, Section, SectionHead, StepNo } from "../components/ui.jsx";
+import { Symbol } from "../components/Logo.jsx";
+import { Arrow, Button, CtaBand, PageHero, Section, SectionHead, StepNo } from "../components/ui.jsx";
 
 function ValueIcon({ title }) {
   const common = {
@@ -167,6 +168,150 @@ export function Careers() {
   );
 }
 
+const contactFacts = [
+  {
+    kind: "mail",
+    title: "Email",
+    text: "info@techclick.rw",
+    href: "mailto:info@techclick.rw",
+  },
+  {
+    kind: "pin",
+    title: "Headquarters",
+    text: "Kigali City - Ikaze house/ kisiment",
+    // strong: true,
+  },
+  {
+    kind: "people",
+    title: "Existing customers",
+    text: "Product support is available through the customer portal.",
+  },
+  {
+    kind: "media",
+    title: "Media",
+    text: "For media inquiries, use the general request and mention the story.",
+  },
+];
+
+function ContactMark({ kind }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    className: "h-5 w-5",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.7,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  if (kind === "mail") {
+    return (
+      <svg {...common}>
+        <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+        <path d="m4.5 7 7.5 6 7.5-6" />
+      </svg>
+    );
+  }
+  if (kind === "pin") {
+    return (
+      <svg {...common}>
+        <path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10z" />
+        <circle cx="12" cy="11" r="2" />
+      </svg>
+    );
+  }
+  if (kind === "people") {
+    return (
+      <svg {...common}>
+        <circle cx="9" cy="9" r="2.2" />
+        <path d="M5.2 17.5c.5-2 2-3 3.8-3s3.3 1 3.8 3" />
+        <circle cx="16" cy="9.2" r="1.7" />
+        <path d="M15.2 14.6c1.3.2 2.3.9 2.8 2.3" />
+      </svg>
+    );
+  }
+  if (kind === "media") {
+    return (
+      <svg {...common}>
+        <path d="M5 6.5h10a1 1 0 0 1 1 1V16l4 2.2V8.2" />
+        <path d="M8 10.5h5M8 13.5h3" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <rect x="3.5" y="7" width="17" height="12" rx="2" />
+      <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7M3.5 12h17" />
+    </svg>
+  );
+}
+
+const socials = [
+  { name: "LinkedIn", href: "https://www.linkedin.com", kind: "linkedin" },
+  { name: "X", href: "https://x.com", kind: "x" },
+  { name: "YouTube", href: "https://www.youtube.com", kind: "youtube" },
+];
+
+function SocialMark({ kind }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    className: "h-4 w-4",
+    fill: "currentColor",
+    "aria-hidden": true,
+  };
+  if (kind === "linkedin") {
+    return (
+      <svg {...common}>
+        <path d="M5.7 9.2H8v9.3H5.7zM6.8 4.8a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8zM10.2 9.2h2.2v1.3h.1c.3-.6 1.1-1.3 2.3-1.3 2.5 0 3 1.6 3 3.7v5.6h-2.3v-5c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6v5.1H10.2z" />
+      </svg>
+    );
+  }
+  if (kind === "x") {
+    return (
+      <svg {...common}>
+        <path d="M14.7 4.5h2.2l-4.8 5.5 5.6 7.5h-4.4l-3.4-4.5-3.9 4.5H4.8l5.1-5.9L4.5 4.5h4.5l3.1 4.1z" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <path d="M22 12.2s0-3.2-.4-4.6c-.2-.9-.9-1.6-1.8-1.8C18.2 5.4 12 5.4 12 5.4s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 9 2 12.2 2 12.2s0 3.2.4 4.6c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.4.4-4.6.4-4.6zM10 15.5V8.9l5.2 3.3z" />
+    </svg>
+  );
+}
+
+function SocialCard() {
+  return (
+    <aside className="card flex h-full flex-col p-5 sm:p-6">
+      <div className="flex items-center justify-between gap-3">
+        <span className="flex items-center gap-2.5">
+          <Symbol size="sm">Tc</Symbol>
+          <span className="font-semibold">Techclick</span>
+        </span>
+        <span className="font-mono text-[11px] tracking-wide text-muted">SOCIAL</span>
+      </div>
+      <ul className="mt-5 grid flex-1 content-center gap-3">
+        {socials.map((item) => (
+          <li key={item.name}>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-3 rounded-[10px] bg-smoke px-3 py-3"
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-blue text-white transition group-hover:bg-blue-deep">
+                <SocialMark kind={item.kind} />
+              </span>
+              <span className="font-semibold transition group-hover:text-blue">{item.name}</span>
+              <Arrow className="ml-auto h-4 w-4 text-blue transition group-hover:translate-x-0.5" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+}
+
 export function Contact() {
   useEffect(() => {
     document.title = "Contact | Techclick";
@@ -179,41 +324,39 @@ export function Contact() {
         eyebrow="Talk with us"
         title="Contact"
         lead="Choose the type of request so it reaches the right team. We reply within one business day."
+        aside={<SocialCard />}
       />
       <Section id="form">
         <div className="grid items-start gap-4 lg:grid-cols-[1.5fr_0.6fr]">
           <div className="card p-6 sm:p-8">
             <InquiryForm />
           </div>
-          <aside className="card h-fit p-6">
-            <dl className="grid gap-6">
-              <div>
-                <dt className="text-sm font-semibold text-blue">Email</dt>
-                <dd className="mt-1">
-                  <a className="font-semibold text-blue" href="mailto:contact@example.com">
-                    contact@example.com
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-sm font-semibold text-blue">Headquarters</dt>
-                <dd className="mt-1 font-semibold">United States</dd>
-              </div>
-              <div>
-                <dt className="text-sm font-semibold text-blue">Existing customers</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-muted">
-                  Product support is available through the customer portal.
-                </dd>
-              </div>
-              <div>
-                <dt className="text-sm font-semibold text-blue">Media</dt>
-                <dd className="mt-1 text-sm text-muted">
-                  For media inquiries, use the general request and mention the story.
-                </dd>
-              </div>
-            </dl>
-            <Link to="/careers" className="mt-6 inline-block text-sm font-semibold text-blue">
-              Looking for careers?
+          <aside className="grid gap-4">
+            {contactFacts.map((item) => (
+              <article key={item.title} className="card flex items-start gap-3 p-5">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[10px] bg-blue text-white">
+                  <ContactMark kind={item.kind} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold">{item.title}</p>
+                  {item.href ? (
+                    <a className="mt-1 block text-sm font-semibold break-all text-blue" href={item.href}>
+                      {item.text}
+                    </a>
+                  ) : (
+                    <p className={`mt-1 text-sm leading-relaxed ${item.strong ? "font-semibold text-ink" : "text-muted"}`}>
+                      {item.text}
+                    </p>
+                  )}
+                </div>
+              </article>
+            ))}
+            <Link to="/careers" className="card group flex items-center gap-3 p-5">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[10px] bg-blue text-white transition group-hover:bg-blue-deep">
+                <ContactMark kind="careers" />
+              </span>
+              <span className="min-w-0 flex-1 font-semibold transition group-hover:text-blue">Looking for careers?</span>
+              <Arrow className="h-4 w-4 shrink-0 text-blue transition group-hover:translate-x-0.5" />
             </Link>
           </aside>
         </div>
